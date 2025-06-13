@@ -74,11 +74,22 @@ export const getMatchesByCategory = async (categoryId) => {
     orderBy('date', 'asc')
   );
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-    date: doc.data().date?.toDate()
+  const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
+    const matchData = docSnapshot.data();
+    // Dapatkan maklumat kategori
+    const categoryDocRef = doc(db, 'categories', matchData.categoryId);
+    const categoryDoc = await getDoc(categoryDocRef);
+    const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
+    
+    return {
+      id: docSnapshot.id,
+      ...matchData,
+      date: matchData.date?.toDate(),
+      time: matchData.time || null,  // Pastikan data masa dimasukkan
+      category: categoryName  // Masukkan nama kategori
+    };
   }));
+  return matches;
 };
 
 export const getUpcomingMatches = async () => {
