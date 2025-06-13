@@ -24,7 +24,6 @@ export const getMatches = async () => {
   const querySnapshot = await getDocs(q);
   const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
     const matchData = docSnapshot.data();
-    // Dapatkan maklumat kategori menggunakan doc dari firebase/firestore
     const categoryDocRef = doc(db, 'categories', matchData.categoryId);
     const categoryDoc = await getDoc(categoryDocRef);
     const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
@@ -33,6 +32,7 @@ export const getMatches = async () => {
       id: docSnapshot.id,
       ...matchData,
       date: matchData.date?.toDate(),
+      time: matchData.time || null,  // Tambah ini
       category: categoryName
     };
   }));
