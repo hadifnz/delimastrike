@@ -8,7 +8,9 @@
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 2rem 0;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Navbar */
@@ -167,24 +169,23 @@
 
 .match-teams {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
   margin: 1.5rem 0;
-  padding: 1rem;
+  padding: 1rem 2rem;
   background: #f8f9fa;
   border-radius: 8px;
 }
 
 .team {
-  flex: 1;
-  max-width: 300px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .team-name {
   font-size: 1.25rem;
-  margin-bottom: 0.5rem;
   color: #333;
 }
 
@@ -192,12 +193,14 @@
   font-size: 2rem;
   font-weight: bold;
   color: #8B0000;
+  min-width: 3rem;
 }
 
 .match-vs {
   font-weight: bold;
   color: #666;
   font-size: 1.2rem;
+  margin: 0 1rem;
 }
 
 /* Status Badges */

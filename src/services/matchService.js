@@ -43,6 +43,20 @@ export const getLiveMatches = async () => {
   }));
 };
 
+export const getCompletedMatches = async () => {
+  const q = query(
+    matchesRef, 
+    where('status', '==', 'completed'),
+    orderBy('date', 'desc')
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+    date: doc.data().date?.toDate()
+  }));
+};
+
 export const getMatchesByCategory = async (categoryId) => {
   const q = query(
     matchesRef, 

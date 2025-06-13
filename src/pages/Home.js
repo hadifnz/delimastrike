@@ -3,7 +3,9 @@ import {
   getMatches, 
   getCategories, 
   getMatchesByCategory, 
-  getUpcomingMatches 
+  getUpcomingMatches,
+  getLiveMatches,
+  getCompletedMatches
 } from '../services/matchService';
 import MatchList from '../components/MatchList';
 import CategoryFilter from '../components/CategoryFilter';
@@ -16,7 +18,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [viewMode, setViewMode] = useState('all'); // 'all', 'upcoming'
+  const [viewMode, setViewMode] = useState('all'); // 'all', 'upcoming', 'live', 'completed'
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,19 +30,32 @@ const Home = () => {
         const categoriesData = await getCategories();
         setCategories(categoriesData);
 
-        // Fetch matches based on view mode and category
         let matchesData;
 
-        if (viewMode === 'upcoming') {
+        if (viewMode === 'live') {
+          if (selectedCategory === 'all') {
+            matchesData = await getLiveMatches();
+          } else {
+            const allMatches = await getMatchesByCategory(selectedCategory);
+            matchesData = allMatches.filter(match => match.status === 'live');
+          }
+        } else if (viewMode === 'upcoming') {
           if (selectedCategory === 'all') {
             matchesData = await getUpcomingMatches();
           } else {
-            // Sementara fallback pada getMatchesByCategory + filter di frontend
             const allMatches = await getMatchesByCategory(selectedCategory);
             const now = new Date();
             matchesData = allMatches.filter(match => match.date >= now);
           }
+        } else if (viewMode === 'completed') {
+          if (selectedCategory === 'all') {
+            matchesData = await getCompletedMatches();
+          } else {
+            const allMatches = await getMatchesByCategory(selectedCategory);
+            matchesData = allMatches.filter(match => match.status === 'completed');
+          }
         } else {
+          // default 'all' view mode
           if (selectedCategory === 'all') {
             matchesData = await getMatches();
           } else {
@@ -73,20 +88,19 @@ const Home = () => {
         <h1>Jadual Perlawanan SUKOL</h1>
         <p>Jadual dan keputusan perlawanan terkini</p>
       </div>
-      
+
       <div className="filters-section">
         <CategoryFilter 
           categories={categories} 
           selectedCategory={selectedCategory} 
           onCategoryChange={handleCategoryChange} 
         />
-        
         <ViewToggle 
           currentView={viewMode} 
           onViewChange={handleViewModeChange} 
         />
       </div>
-      
+
       <div className="matches-section">
         <h2>Perlawanan</h2>
         <MatchList 
