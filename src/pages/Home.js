@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getMatches, getCategories, getMatchesByCategory, getUpcomingMatches } from '../services/matchService';
+import { 
+  getMatches, 
+  getCategories, 
+  getMatchesByCategory, 
+  getUpcomingMatches 
+} from '../services/matchService';
 import MatchList from '../components/MatchList';
 import CategoryFilter from '../components/CategoryFilter';
 import ViewToggle from '../components/ViewToggle';
@@ -11,27 +16,29 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [viewMode, setViewMode] = useState('all'); // 'all' or 'upcoming'
+  const [viewMode, setViewMode] = useState('all'); // 'all', 'upcoming'
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
+        setError(null);
+
         // Fetch categories
         const categoriesData = await getCategories();
         setCategories(categoriesData);
-        
-        // Fetch matches based on filters
+
+        // Fetch matches based on view mode and category
         let matchesData;
-        
+
         if (viewMode === 'upcoming') {
           if (selectedCategory === 'all') {
             matchesData = await getUpcomingMatches();
           } else {
-            // This would need to be implemented in matchService.js
-            // to get upcoming matches by category
-            matchesData = await getMatchesByCategory(selectedCategory, true);
+            // Sementara fallback pada getMatchesByCategory + filter di frontend
+            const allMatches = await getMatchesByCategory(selectedCategory);
+            const now = new Date();
+            matchesData = allMatches.filter(match => match.date >= now);
           }
         } else {
           if (selectedCategory === 'all') {
@@ -40,11 +47,11 @@ const Home = () => {
             matchesData = await getMatchesByCategory(selectedCategory);
           }
         }
-        
+
         setMatches(matchesData);
-        setLoading(false);
       } catch (err) {
         setError('Ralat mendapatkan data: ' + err.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -68,21 +75,18 @@ const Home = () => {
       </div>
       
       <div className="filters-section">
-        {/* Komponen Penapis Kategori */}
         <CategoryFilter 
           categories={categories} 
           selectedCategory={selectedCategory} 
           onCategoryChange={handleCategoryChange} 
         />
         
-        {/* Komponen Togol Paparan */}
         <ViewToggle 
           currentView={viewMode} 
           onViewChange={handleViewModeChange} 
         />
       </div>
       
-      {/* Senarai Perlawanan */}
       <div className="matches-section">
         <h2>Perlawanan</h2>
         <MatchList 

@@ -62,22 +62,26 @@ const Match = ({ match }) => {
       </div>
       
       <div className="match-teams">
-        <div className="team team1">
-          <div className="team-name">{match.team1}</div>
-          {(match.status === 'live' || match.status === 'completed') && (
-            <div className="team-score">{match.score1}</div>
-          )}
-        </div>
-        
-        <div className="match-vs">VS</div>
-        
-        <div className="team team2">
-          <div className="team-name">{match.team2}</div>
-          {(match.status === 'live' || match.status === 'completed') && (
-            <div className="team-score">{match.score2}</div>
-          )}
-        </div>
-      </div>
+  <div className="team team1">
+    <div className="team-name">
+      <strong>{match.team1}</strong>
+    </div>
+    {(match.status === 'live' || match.status === 'completed') && (
+      <div className="team-score">{match.score1 || 0}</div>
+    )}
+  </div>
+  
+  <div className="match-vs">LAWAN</div>
+  
+  <div className="team team2">
+    <div className="team-name">
+      <strong>{match.team2}</strong>
+    </div>
+    {(match.status === 'live' || match.status === 'completed') && (
+      <div className="team-score">{match.score2 || 0}</div>
+    )}
+  </div>
+</div>
     </div>
   );
 };

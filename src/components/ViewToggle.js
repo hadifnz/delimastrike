@@ -19,6 +19,12 @@ const ViewToggle = ({ currentView, onViewChange }) => {
           Semua Perlawanan
         </button>
         <button 
+          className={`toggle-btn ${currentView === 'live' ? 'active' : ''}`}
+          onClick={() => onViewChange('live')}
+        >
+          Sedang Berlangsung
+        </button>
+        <button 
           className={`toggle-btn ${currentView === 'upcoming' ? 'active' : ''}`}
           onClick={() => onViewChange('upcoming')}
         >

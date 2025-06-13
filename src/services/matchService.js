@@ -29,6 +29,20 @@ export const getMatches = async () => {
   }));
 };
 
+export const getLiveMatches = async () => {
+  const q = query(
+    matchesRef, 
+    where('status', '==', 'live'),
+    orderBy('date', 'asc')
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+    date: doc.data().date?.toDate()
+  }));
+};
+
 export const getMatchesByCategory = async (categoryId) => {
   const q = query(
     matchesRef, 
