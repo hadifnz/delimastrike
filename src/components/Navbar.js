@@ -18,10 +18,9 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="container navbar-container">
-        <Link to="/" className="navbar-logo">
-          <img src="/logo.svg" alt="SUKOL Logo" />
-          <span>SUKOL</span>
-        </Link>
+      <Link to="/" className="navbar-logo">
+      <span>SUKOL DELIMA</span>
+      </Link>
         <div className="navbar-links">
           <Link to="/" className="navbar-link">Jadual</Link>
           {currentUser ? (

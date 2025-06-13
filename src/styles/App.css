@@ -154,56 +154,84 @@
   background-color: white;
 }
 
-/* Match Card Styles */
+/* Match Card */
 .match-card {
-  background-color: #fff;
+  background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid #e0e0e0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 800px;
+  text-align: center;
 }
 
-.match-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.match-teams {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
 }
 
-.match-status {
-  color: #fff;
+.team {
+  flex: 1;
+  max-width: 300px;
+  text-align: center;
+}
+
+.team-name {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.team-score {
+  font-size: 2rem;
   font-weight: bold;
-  padding: 5px 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  z-index: 1;
+  color: #8B0000;
+}
+
+.match-vs {
+  font-weight: bold;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+/* Status Badges */
+.match-status {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .match-status-live {
-  background-color: #ff0000;
+  background-color: #dc3545;
+  color: white;
 }
 
-.match-status-completed {
-  background-color: #4caf50;
+/* Match Details */
+.match-details {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
 }
 
-.match-status-upcoming {
-  background-color: #2196f3;
+.match-date, .match-time, .match-venue {
+  margin: 0.5rem 0;
+  color: #666;
 }
 
 .match-category {
-  background-color: #8b0000;
-  color: #fff;
-  display: inline-block;
-  font-size: 0.8rem;
-  margin: 10px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-weight: 500;
+  color: #8B0000;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .match-details {

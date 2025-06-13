@@ -64,18 +64,18 @@ const Match = ({ match }) => {
       <div className="match-teams">
   <div className="team team1">
     <div className="team-name">
-      <strong>{match.team1}</strong>
+      <strong>{match.team1 || 'TBD'}</strong>
     </div>
     {(match.status === 'live' || match.status === 'completed') && (
       <div className="team-score">{match.score1 || 0}</div>
     )}
   </div>
   
-  <div className="match-vs">LAWAN</div>
+  <div className="match-vs">VS</div>
   
   <div className="team team2">
     <div className="team-name">
-      <strong>{match.team2}</strong>
+      <strong>{match.team2 || 'TBD'}</strong>
     </div>
     {(match.status === 'live' || match.status === 'completed') && (
       <div className="team-score">{match.score2 || 0}</div>
