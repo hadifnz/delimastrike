@@ -22,17 +22,18 @@ const categoriesRef = collection(db, 'categories');
 export const getMatches = async () => {
   const q = query(matchesRef, orderBy('date', 'asc'), limit(20));
   const querySnapshot = await getDocs(q);
-  const matches = await Promise.all(querySnapshot.docs.map(async doc => {
-    const matchData = doc.data();
-    // Dapatkan maklumat kategori
-    const categoryDoc = await getDoc(doc(db, 'categories', matchData.categoryId));
+  const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
+    const matchData = docSnapshot.data();
+    // Dapatkan maklumat kategori menggunakan doc dari firebase/firestore
+    const categoryDocRef = doc(db, 'categories', matchData.categoryId);
+    const categoryDoc = await getDoc(categoryDocRef);
     const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
     
     return {
-      id: doc.id,
+      id: docSnapshot.id,
       ...matchData,
       date: matchData.date?.toDate(),
-      category: categoryName // Tambah nama kategori
+      category: categoryName
     };
   }));
   return matches;
