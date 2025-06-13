@@ -90,6 +90,7 @@ function MatchForm() {
         team1Name: formData.team1Name,
         team2Name: formData.team2Name,
         date: dateTime,
+        time: formData.time,  // Tambah ini
         venue: formData.venue,
         status: formData.status,
         team1Score: parseInt(formData.team1Score) || 0,

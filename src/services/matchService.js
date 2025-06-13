@@ -32,7 +32,7 @@ export const getMatches = async () => {
       id: docSnapshot.id,
       ...matchData,
       date: matchData.date?.toDate(),
-      time: matchData.time || null,  // Tambah ini
+      time: matchData.time || null,  // Pastikan data masa dikembalikan
       category: categoryName
     };
   }));
@@ -144,6 +144,11 @@ export const updateMatch = async (id, matchData) => {
     updateData.date = Timestamp.fromDate(new Date(updateData.date));
   }
   
+  // Pastikan data masa disimpan
+  if (updateData.time) {
+    updateData.time = updateData.time;
+  }
+
   // Add updated timestamp
   updateData.updatedAt = Timestamp.now();
   
