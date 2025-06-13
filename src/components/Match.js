@@ -6,10 +6,10 @@ import '../styles/App.css';
  * 
  * @param {Object} match - Objek perlawanan yang mengandungi maklumat perlawanan
  * @param {string} match.id - ID perlawanan
- * @param {string} match.team1 - Nama pasukan pertama
- * @param {string} match.team2 - Nama pasukan kedua
- * @param {number} match.score1 - Skor pasukan pertama
- * @param {number} match.score2 - Skor pasukan kedua
+ * @param {string} match.team1Name - Nama pasukan pertama
+ * @param {string} match.team2Name - Nama pasukan kedua
+ * @param {number} match.team1Score - Skor pasukan pertama
+ * @param {number} match.team2Score - Skor pasukan kedua
  * @param {string} match.date - Tarikh perlawanan
  * @param {string} match.time - Masa perlawanan
  * @param {string} match.venue - Tempat perlawanan
@@ -62,25 +62,26 @@ const Match = ({ match }) => {
       </div>
       
       <div className="match-teams">
-  <div className="team team1">
-    <div className="team-name">
-      <strong>{match.team1 || 'TBD'}</strong>
-    </div>
-    {(match.status === 'live' || match.status === 'completed') && (
-      <div className="team-score">{match.score1 || 0}</div>
-    )}
+    
+<div className="team team1">
+  <div className="team-name">
+    <strong>{match.team1Name || 'TBD'}</strong>
   </div>
-  
-  <div className="match-vs">VS</div>
-  
-  <div className="team team2">
-    <div className="team-name">
-      <strong>{match.team2 || 'TBD'}</strong>
-    </div>
-    {(match.status === 'live' || match.status === 'completed') && (
-      <div className="team-score">{match.score2 || 0}</div>
-    )}
+  {(match.status === 'live' || match.status === 'completed') && (
+    <div className="team-score">{match.team1Score || 0}</div>
+  )}
+</div>
+
+<div className="match-vs">VS</div>
+
+<div className="team team2">
+  <div className="team-name">
+    <strong>{match.team2Name || 'TBD'}</strong>
   </div>
+  {(match.status === 'live' || match.status === 'completed') && (
+    <div className="team-score">{match.team2Score || 0}</div>
+  )}
+</div>
 </div>
     </div>
   );
