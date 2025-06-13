@@ -7,7 +7,8 @@ import {
   getDocs, 
   getDoc, 
   query, 
-  where, 
+  where,
+  limit, 
   orderBy, 
   Timestamp 
 } from 'firebase/firestore';
@@ -19,7 +20,7 @@ const categoriesRef = collection(db, 'categories');
 
 // Match functions
 export const getMatches = async () => {
-  const q = query(matchesRef, orderBy('date', 'asc'));
+  const q = query(matchesRef, orderBy('date', 'asc'), limit(20));
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => ({
     id: doc.id,
