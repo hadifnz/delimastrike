@@ -42,10 +42,15 @@ const Home = () => {
         } else if (viewMode === 'upcoming') {
           if (selectedCategory === 'all') {
             matchesData = await getUpcomingMatches();
+            // Filter untuk status 'upcoming' sahaja
+            matchesData = matchesData.filter(match => match.status === 'upcoming');
           } else {
             const allMatches = await getMatchesByCategory(selectedCategory);
-            const now = new Date();
-            matchesData = allMatches.filter(match => match.date >= now);
+            // Filter untuk status 'upcoming' sahaja
+            matchesData = allMatches.filter(match => 
+              match.status === 'upcoming' && 
+              new Date(match.date) >= new Date()
+            );
           }
         } else if (viewMode === 'completed') {
           if (selectedCategory === 'all') {

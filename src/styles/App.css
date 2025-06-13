@@ -174,8 +174,15 @@
 .match-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
   padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.match-list-container {
+  width: 100%;
+  padding: 0 2rem;
 }
 
 /* Match Card */
@@ -184,9 +191,9 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .match-status {
