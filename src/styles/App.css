@@ -219,8 +219,11 @@
 }
 
 .match-category {
+  font-size: 0.9rem;
   color: #666;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .match-details {
@@ -233,7 +236,9 @@
 }
 
 .match-time {
-  color: #666;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .match-venue {
