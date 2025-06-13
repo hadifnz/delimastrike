@@ -9,7 +9,7 @@
 .main-content {
   flex: 1;
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -113,6 +113,20 @@
   margin-bottom: 2rem;
 }
 
+/* Hero Section */
+.hero-section {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.hero-section h1 {
+  color: #8B0000;
+  margin-bottom: 0.5rem;
+}
+
 .hero-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -156,51 +170,98 @@
   background-color: white;
 }
 
+/* Match List */
+.match-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
 /* Match Card */
 .match-card {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  margin: 1rem auto;
-  max-width: 800px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.match-status {
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.match-status-live {
+  background-color: #dc3545;
+  color: white;
+}
+
+.match-status-completed {
+  background-color: #28a745;
+  color: white;
+}
+
+.match-status-upcoming {
+  background-color: #ffc107;
+  color: black;
+}
+
+.match-category {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.match-details {
+  margin-bottom: 1rem;
+}
+
+.match-date {
+  font-weight: 500;
+  color: #333;
+}
+
+.match-time {
+  color: #666;
+}
+
+.match-venue {
+  color: #666;
+  font-style: italic;
 }
 
 .match-teams {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  margin: 1.5rem 0;
-  padding: 1rem 2rem;
+  gap: 1rem;
+  padding: 1rem;
   background: #f8f9fa;
   border-radius: 8px;
+  margin-top: auto;
 }
 
 .team {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .team-name {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
   color: #333;
 }
 
 .team-score {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #8B0000;
-  min-width: 3rem;
-}
-
-.match-vs {
-  font-weight: bold;
-  color: #666;
-  font-size: 1.2rem;
-  margin: 0 1rem;
+  min-width: 2rem;
 }
 
 /* Status Badges */
@@ -282,8 +343,7 @@
 
 .match-vs {
   font-weight: bold;
-  color: #8b0000;
-  font-size: 1.2rem;
+  color: #666;
 }
 
 /* Match List Styles */
