@@ -56,10 +56,10 @@ const Match = ({ match }) => {
       <div className="match-category">{match.category}</div>
       
       <div className="match-details">
-        <div className="match-date">{formatDate(match.date)}</div>
-        <div className="match-time">{match.time}</div>
-        <div className="match-venue">{match.venue}</div>
-      </div>
+  <div className="match-date">{formatDate(match.date)}</div>
+  <div className="match-time">{match.time || 'Masa belum ditetapkan'}</div>
+  <div className="match-venue">{match.venue}</div>
+</div>
       
       <div className="match-teams">
     

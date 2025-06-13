@@ -22,11 +22,20 @@ const categoriesRef = collection(db, 'categories');
 export const getMatches = async () => {
   const q = query(matchesRef, orderBy('date', 'asc'), limit(20));
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-    date: doc.data().date?.toDate()
+  const matches = await Promise.all(querySnapshot.docs.map(async doc => {
+    const matchData = doc.data();
+    // Dapatkan maklumat kategori
+    const categoryDoc = await getDoc(doc(db, 'categories', matchData.categoryId));
+    const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
+    
+    return {
+      id: doc.id,
+      ...matchData,
+      date: matchData.date?.toDate(),
+      category: categoryName // Tambah nama kategori
+    };
   }));
+  return matches;
 };
 
 export const getLiveMatches = async () => {
