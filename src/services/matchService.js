@@ -46,11 +46,21 @@ export const getLiveMatches = async () => {
     orderBy('date', 'asc')
   );
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-    date: doc.data().date?.toDate()
+  const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
+    const matchData = docSnapshot.data();
+    const categoryDocRef = doc(db, 'categories', matchData.categoryId);
+    const categoryDoc = await getDoc(categoryDocRef);
+    const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
+    
+    return {
+      id: docSnapshot.id,
+      ...matchData,
+      date: matchData.date?.toDate(),
+      time: matchData.time || null,
+      category: categoryName
+    };
   }));
+  return matches;
 };
 
 export const getCompletedMatches = async () => {
@@ -60,11 +70,21 @@ export const getCompletedMatches = async () => {
     orderBy('date', 'desc')
   );
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-    date: doc.data().date?.toDate()
+  const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
+    const matchData = docSnapshot.data();
+    const categoryDocRef = doc(db, 'categories', matchData.categoryId);
+    const categoryDoc = await getDoc(categoryDocRef);
+    const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
+    
+    return {
+      id: docSnapshot.id,
+      ...matchData,
+      date: matchData.date?.toDate(),
+      time: matchData.time || null,
+      category: categoryName
+    };
   }));
+  return matches;
 };
 
 export const getMatchesByCategory = async (categoryId) => {
@@ -100,11 +120,21 @@ export const getUpcomingMatches = async () => {
     orderBy('date', 'asc')
   );
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-    date: doc.data().date?.toDate()
+  const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
+    const matchData = docSnapshot.data();
+    const categoryDocRef = doc(db, 'categories', matchData.categoryId);
+    const categoryDoc = await getDoc(categoryDocRef);
+    const categoryName = categoryDoc.exists() ? categoryDoc.data().name : '';
+    
+    return {
+      id: docSnapshot.id,
+      ...matchData,
+      date: matchData.date?.toDate(),
+      time: matchData.time || null,
+      category: categoryName
+    };
   }));
+  return matches;
 };
 
 export const getMatch = async (id) => {
