@@ -145,8 +145,8 @@ export const updateMatch = async (id, matchData) => {
   }
   
   // Pastikan data masa disimpan
-  if (updateData.time) {
-    updateData.time = updateData.time;
+  if (matchData.time) {
+    updateData.time = matchData.time;  // Gunakan nilai dari matchData
   }
 
   // Add updated timestamp
