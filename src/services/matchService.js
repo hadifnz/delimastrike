@@ -7,8 +7,7 @@ import {
   getDocs, 
   getDoc, 
   query, 
-  where,
-  limit, 
+  where, 
   orderBy, 
   Timestamp 
 } from 'firebase/firestore';
@@ -20,7 +19,8 @@ const categoriesRef = collection(db, 'categories');
 
 // Match functions
 export const getMatches = async () => {
-  const q = query(matchesRef, orderBy('date', 'asc'), limit(20));
+  // Dapatkan semua perlawanan
+  const q = query(matchesRef);
   const querySnapshot = await getDocs(q);
   const matches = await Promise.all(querySnapshot.docs.map(async docSnapshot => {
     const matchData = docSnapshot.data();
@@ -32,11 +32,36 @@ export const getMatches = async () => {
       id: docSnapshot.id,
       ...matchData,
       date: matchData.date?.toDate(),
-      time: matchData.time || null,  // Pastikan data masa dikembalikan
+      time: matchData.time || null,
       category: categoryName
     };
   }));
-  return matches;
+
+  // Susun perlawanan mengikut status dan tarikh
+  const sortedMatches = matches.sort((a, b) => {
+    // Tentukan keutamaan status
+    const statusPriority = {
+      'live': 0,      // Keutamaan tertinggi
+      'upcoming': 1,  // Keutamaan kedua
+      'completed': 2  // Keutamaan terendah
+    };
+
+    // Bandingkan status terlebih dahulu
+    if (statusPriority[a.status] !== statusPriority[b.status]) {
+      return statusPriority[a.status] - statusPriority[b.status];
+    }
+
+    // Jika status sama, susun mengikut tarikh
+    if (a.status === 'completed') {
+      // Perlawanan tamat disusun dari yang terbaru
+      return b.date - a.date;
+    } else {
+      // Perlawanan live dan akan datang disusun dari yang terawal
+      return a.date - b.date;
+    }
+  });
+
+  return sortedMatches;
 };
 
 export const getLiveMatches = async () => {
